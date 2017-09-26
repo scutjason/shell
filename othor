@@ -1,0 +1,31 @@
+1、ls 列出目录下的正规文件 ^-
+  ls -l |grep "^-" 
+ 
+2、ls 列出目录下的子目录 ^d
+  ls -l |grep "^d" 
+  
+3、rm、mv、cp时参数列表过长
+  find . -name "*" | xargs rm -rf '*'
+  ls | xargs -t -I {} mv {} ../matchres/ 可以把当前目录下的所有文件移到 "../matchres"下
+ 
+4、加减乘除
+
+# let
+i=9
+let i--
+echo $i
+>> 8
+
+i=9
+j=10
+let result=i+j
+echo $result
+>> 19
+
+# []
+# 注意前面的$符
+i=9
+j=10
+let result=i+j
+result=$[ $i + $j ] 
+echo $result
