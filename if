@@ -1,0 +1,173 @@
+                                              if
+                            
+句式
+if condition; then
+    express
+elif
+    express
+fi
+
+#如果在windows下编辑的sh脚本，有时linux下执行失败
+# 执行 cat -A filename， 可以检查文件格式，如果看到每一行结尾都有^M$，那么我们就需要转换格式
+# 编辑 -- 格式转换 -- unix格式
+
+有下面几种情况
+1、判断文件是否存在
+if [ -f "./logserver_space_size.sh" ];then
+    echo "exit"
+else
+    echo "not exit"
+fi
+
+2、判断文件是否具有可执行权限
+if [ -x "/home/norstar/logserver/ipdrlogen/ipdrlogen" ];then
+    echo "yes"
+else
+    echo "no"
+fi
+
+3、判断变量是否有值
+var=""
+if [ -n "$var" ];then
+    echo "have value"
+else
+    echo "no value"
+fi
+>> no value
+
+4、判断两个变量是否相等
+a=1
+b=1
+# 不管a、b变量是数字、字符串还是啥，一律用"$varname"格式获取变量，注意双引号
+# 另外[] 与变量要相隔一个空格
+if [ "$a" = "$b" ];then
+    echo "equal"
+else
+    echo "no equal"
+fi
+>> equal
+
+5、判断目录是否存在
+if [ -d "/home/norstar/logserver/ipdrlogen/" ];then
+    echo "dir"
+else
+    echo "not dir"
+fi
+
+6、文件是否有内容
+if [ -s "/home/norstar/logserver/ipdrlogen/ipdrlogen" ];then
+    echo "not null"
+else
+    echo "null"
+fi
+
+7、数字比较
+
+# 等于
+# 注意这里-eq前面的-，不是负号，而是一个标记符
+a=1
+b=1
+if [ "$a" -eq "$b" ];then
+    echo "a=b"
+else
+    echo "a!=b"
+fi
+>> a=b
+
+# 不等于
+a=1
+b=2
+if [ "$a" -ne "$b" ];then
+    echo "a!=b"
+else
+    echo "a=b"
+fi
+>> a！=b
+
+# 大于
+a=2
+b=1
+if [ "$a" -gt "$b" ];then
+    echo "a>b"
+else
+    echo "a<=b"
+fi
+>> a>b
+
+# 大于等于
+a=3
+b=2
+if [ "$a" -ge "$b" ];then
+    echo "a>=b"
+else
+    echo "a<b"
+fi
+>> a>=b
+
+# 小于
+a=1
+b=2
+if [ "$a" -lt "$b" ];then
+    echo "a<b"
+else
+    echo "a>=b"
+fi
+>> a<b
+
+# 小于等于
+a=1
+b=2
+if [ "$a" -le "$b" ];then
+    echo "a<=b"
+else
+    echo "a>b"
+fi
+>> a<=b
+
+8、字符串比较
+
+# 相等 =
+# 用 == 也是可以的
+a="i love shell"
+b="I love shell"
+if [ "$a" = "$b" ];then
+    echo "a=b"
+else
+    echo "a!=b"
+fi
+
+# 包含某字符
+a="128G"
+if [[ $a == *G ]];then
+    echo "G"
+else
+    echo "NG"
+fi
+>> G
+
+# 字符串是否为空
+d=""
+if [ -z "$d" ]  
+then  
+    echo "d is empty"  
+fi
+>> d is empty
+
+# 字符串不为空
+d="i love shell"
+if [ -n "$d" ]; then  
+    echo "d is not empty"  
+fi
+>> d is not empty
+
+# 字符串比较大小
+a="I love shell"
+b="i love shell"
+if [ "$a" > "b" ];then
+    echo "a>b"
+else
+    echo "a<=b"
+fi
+>> a>b
+
+
