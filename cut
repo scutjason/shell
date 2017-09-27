@@ -1,0 +1,39 @@
+                                                            cut
+用于显示行中指定部分，删除指定字段
+
+1、文件合并
+# 将f1 f2合并起来，通过重定向放到f3中
+cut f1 f2 > f3                                                            
+
+2、显示指定字段
+# -f 
+# 显示test.txt中的第一行
+cut -f 1 test.txt
+# 显示test.txt中的2，3行
+cut -f 2,3 test.txt
+# 除了某一列 --complement
+cut -f2 --complement test.txt
+
+3、分割
+# -d "分割符"
+# 将test2.txt
+cut -f2 -d";" test2.txt
+
+4、显示指定字符
+# 字符串索引从1开始
+# -c 字符
+# -2 表示从第一个字符到第2个，包括第2个
+echo "aabb" | cut -c-2
+>>aa
+
+# 2-4 表示从第2个字符开始，到第4个，包括第4个
+echo "aabbcc" | cut -c3-4
+>>bb
+
+# 2- 表示从第2个字符开始，直到结尾
+echo "aabb" | cut -c2-
+>>abb
+
+# 同理 
+# -b表示字节
+# -f表示字段
