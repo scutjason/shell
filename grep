@@ -1,0 +1,103 @@
+                                                                    grep
+# 正则化搜索 grep '搜索的字符串'
+
+1、搜索次数
+# -c
+grep -c root /etc/passwd
+>>2
+
+2、打印搜索行
+grep -n root /etc/passwd
+>>1:root:x:0:0:root:/root:/bin/bash
+>>11:operator:x:11:0:operator:/root:/sbin/nologin
+
+3、打印没有被搜索到的
+# 显示出不含有root字符的所有行
+grep -v root /etc/passwd
+
+4、关键字显色
+# --color=auto
+grep -n --color=auto 'root' /etc/passwd 
+
+5、子目录搜索
+# -r 
+# 在当前目录及子目录下搜索 "num_of_size"
+grep -r "num_of_size" *
+
+# -l -r
+# 在当前目录及子目录下搜索 "num_of_size"， 不过不显示具体的行
+grep -l -r "num_of_size" *
+
+6、正则表达式搜索
+# [ab]
+# 意思是一次只取[]中的一个值，要么是a，要么是b
+grep -n 't[ae]st' /etc/passwd 
+
+# [^r]oo
+# 意思是oo字符前面不想要r
+grep -n '[^r]oo' /etc/passwd 
+>>5:lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+# 连续字符组 []
+# [^a-z]oo
+# 意思是，所有oo前面有小写字母的都会被过滤掉
+# [A-Z],[0-9]都可以
+grep -n '[^a-z]oo' /etc/passwd 
+
+# 如果就是想要字母或者数字呢? 去掉^即可
+# [0-9] 
+# [a-z]
+# [A-Z]
+
+# 行首出现才显示
+# ^$
+# 注意这里的^是在最外面的
+# 
+# 所有行的开头是数字
+grep -n '^[0-9]' /etc/passwd 
+# 所有行的开头是小写字母
+grep -n '^[a-z]' /etc/passwd 
+# 所有行的开头是大写字母
+grep -n '^[A-Z]' /etc/passwd 
+# 所有行的开头是字符串 the
+grep -n '^the' /etc/passwd 
+
+# 与上面的^连起来用
+# 开头不是英文字母
+grep -n '^[^a-zA-Z]' /etc/passwd 
+
+# $表示行尾
+# 以.结尾的所有行
+# . 做了转义
+grep -n '\.&' /etc/passwd 
+
+# 任意一个字节
+# . 代表任意一个字符
+# 找出包含r??t 的所有行
+grep -n 'r..t' /etc/passwd 
+
+# 重复多个字节
+# o* 拥有空字节或一个以上的o字节
+# 找出一个或者多个o的行
+grep -n 'roo*' /etc/passwd 
+
+# *要与前面的字符结合一起
+# .* 表示可有可无
+# g开头，g结尾
+grep -n 'g.*g' /etc/passwd 
+
+# 限定重复的范围
+# {}  要用转义\
+# 找出含两个oo的行
+grep -n 'o\{2\}' /etc/passwd 
+
+# 找出2个或者5个oo的行
+grep -n 'o\{2,5\}' /etc/passwd 
+
+
+6、按照指定的格式搜索
+# 比如文件中是 x|x|x|x|x 格式
+# 要找出该文件有多少行
+# 这个比wc -l要靠谱
+grep -c -e '.*|.*|.*|.*|.*|.*' 
+>>13
