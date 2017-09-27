@@ -1,0 +1,53 @@
+                                                                    tr
+压缩重复字符、删除字符、字符转换，只接受stdin输入                                                                 
+
+1、替换
+# 将a替换成b，默认是替换所有
+echo "abcd"|tr 'a' 'b'
+>>bbcd
+
+# -s 可以去重，将多余的a变成一个a
+echo "aaabbbaacccfddd" | tr -s a
+>>abbbacccfddd
+echo "thissss is a text linnnnnnne." | tr -s 'sn'
+>>this is a text line.
+
+2、删除 -d
+# 删除所有的字母
+echo "a12HJ13fdaADff" | tr -d "[a-z][A-Z]"
+>>1213
+
+
+3、替换
+# 按照对应位置，进行替换
+echo "a1213fdasf" | tr -t [afd] [AFO]
+>>A1213FOAsF
+
+# 重复替换 [A*5]
+echo 123456789 | tr '1-9' '[A*5]BCDE'
+>>AAAAABCDE
+
+# 当然也可以直接用集合
+[:alnum:]：字母和数字 
+[:alpha:]：字母 
+[:cntrl:]：控制（非打印）字符 
+[:digit:]：数字 
+[:graph:]：图形字符 
+[:lower:]：小写字母 
+[:print:]：可打印字符 
+[:punct:]：标点符号 
+[:space:]：空白字符 
+[:upper:]：大写字母 
+[:xdigit:]：十六进制字符
+
+echo 'hello, Wold' | tr '[:lower:]' '[:upper:]'
+>>HELLO, WOLD
+
+4、补集替换
+# -c 表示将输入中所有不是字符的字符，全部替换成"\n", 然后在用 -s 将多个压缩成一个"\n"
+# 只会对补集操作，其他不动
+echo 'hello, Wold' | tr -cs "[a-z][A-Z]" "\n"
+
+# 只对G进行操作，前面的128不动
+echo "128G" | tr -cd "[0-9]"
+>>128
