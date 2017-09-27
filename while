@@ -1,0 +1,47 @@
+                                                                                while
+while 表达式
+do
+    表达式
+done
+
+1、计数器
+# (()) 内不空一个也可以的
+int=1
+while(( $int<=5 ))
+do
+    echo $int
+    let int++
+done
+>>1
+>>2
+>>..
+>>5
+
+# 用[]来控制
+# 这个跟if是一样的
+int=1
+while [ "$int" -le "5" ]
+do
+    echo $int
+    let int++
+done
+
+while true
+do
+    echo $int
+    let int++
+    if [ "$int" -eq "5" ]; then
+        break
+    if
+done
+
+# break 
+int=1
+while true
+do
+    echo $int
+    let int++
+    if [ "$int" -eq "5" ]; then
+        break
+    fi
+done
