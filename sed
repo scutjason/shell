@@ -11,4 +11,5 @@ awk '{print $0")"}' table_dim.txt >table_dim1.txt
 	
 
 4、获取引用符号 \1 表示引用括号内的内容（）
+	-r表示后面的''里面是正则表达式
 	sed -r 's/(output_type: ).*/\1"gp"/g' test_epn.sql
