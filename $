@@ -1,0 +1,124 @@
+字符串
+
+
+                                                            $* $@
+
+$@和$*都表示命令行所有参数列表(不包含$0),但是$*将命令行的所有参数看成一个整体，而$@则区分各个参数
+
+test_shell.sh 1 2 3
+
+for i in $@ ;  
+do  
+    echo $i is input chart\! ;  
+done 
+>>1 is input chart!
+>>2 is input chart!
+>>3 is input chart!
+
+for i in "$@" ;  
+do  
+    echo $i is input chart\! ;  
+done 
+>>1 is input chart!
+>>2 is input chart!
+>>3 is input chart!
+
+for i in $* ;  
+do  
+    echo $i is input chart\! ;  
+done 
+>>1 is input chart!
+>>2 is input chart!
+>>3 is input chart!
+
+for i in "$*" ;  
+do  
+    echo $i is input chart\! ;  
+done 
+>>1 2 3 is input chart!
+"$*" 将所有参数看成整体
+
+$# 表示输入参数的个数
+
+$? 表示脚本或者在管道中上一条命令的执行结果
+
+$0 Shell本身的文件名
+
+$1 ~ $n 添加到Shell的各参数值。$1是第1参数、$2是第2参数
+
+var=(i love shell)
+for i in $(var[@])
+do
+    echo $i
+done
+
+
+
+                                                                            $()与${}
+
+$() 表示命令替换
+$ echo today is $(date "+%Y-%m-%d")
+today is 2014-07-01
+ 
+$(cmd) 与 `cmd` 的效果一样，不过有的不支持$(), 但是`cmd` 中有些特殊字符需要处理
+
+${} 表示变量替换
+${var} 与 $var 意思相同
+
+
+数组
+A="a b c def"   # 定义字符串
+${A[@]}	    返回数组全部元素	a b c def
+${A[*]}	    同上	a b c def
+${#A}       返回字符串的整体长度
+
+
+A=(a b c def)   # 定义字符数组
+${A[@]}	    返回数组全部元素	a b c def
+${A[*]}	    同上	a b c def
+${A[0]}	    返回数组第一个元素	a
+${#A[@]}	返回数组元素总个数	4
+${#A[*]}	同上	4
+${#A[3]}	返回第四个元素的长度，即def的长度	3
+A[3]=xyz	则是将第四个组数重新定义为 xyz	
+符号# 表示取长度 
+
+$(( ))与整数运算
+a=5;b=7;c=2
+$ echo $((a+b*c))
+19
+
+(( ))重定义变量值, 也可以用来自增
+$ a=5;b=7
+$ ((a++));echo $a
+6
+$ ((a--));echo $a
+5
+$ ((a<b));echo $?
+0
+
+字符串截取，简单分割等
+$ file=/dir1/dir2/dir3/my.file.txt
+${file#*/}	拿掉第一条 / 及其左边的字符串	dir1/dir2/dir3/my.file.txt
+${file##*/}	拿掉最后一条 / 及其左边的字符串	my.file.txt
+${file#*.}	拿掉第一个 . 及其左边的字符串	file.txt
+${file##*.}	拿掉最后一个 . 及其左边的字符串	txt
+${file%/*}	拿掉最后一条 / 及其右边的字符串	/dir1/dir2/dir3
+${file%%/*}	拿掉第一条 / 及其右边的字符串	(空值)
+${file%.*}	拿掉最后一个 . 及其右边的字符串	/dir1/dir2/dir3/my.file
+${file%%.*}	拿掉第一个 . 及其右边的字符串	/dir1/dir2/dir3/my
+
+总结： # 表示左边，一个#表示第一个，两个##表示最后一个，* 表示需要被删除的，/表示匹配的字符是/
+       % 表示右边，一个%表示第一个，两个%%表示最后一个，
+
+取字符串子串
+# 下标从0开始
+${file:0:5}	        提取最左边的 5 个字节	/dir1
+${file:5:5}	        提取第 5 个字节右边的连续 5 个字节	/dir2
+${file/dir/path}	将第一个 dir 提换为 path	/path1/dir2/dir3/my.file.txt
+${file//dir/path}	将全部 dir 提换为 path	/path1/path2/path3/my.file.txt
+${#file}	        获取变量长度	27
+
+总结   /a/b  将第一个a用b替换  
+       //a/b 将所有a用b替换
+       这些规则使用与sed
