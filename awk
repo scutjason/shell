@@ -107,3 +107,9 @@ awk -F ':' 'BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i < NR
 >>3 adm
 >>4 lp
 >>5 syn
+
+
+# 列出在某个时间后面的所有文件
+# hour[1] 表示小时
+# hour[2] 表示分钟
+awk '{split($8,hour,":");if(hour[1]>=$h && hour[2]>=$m) print }'
