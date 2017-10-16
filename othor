@@ -33,4 +33,8 @@ echo $result
 5、日期处理
 # 当前日期减去三天 -d 3day
 dirName=`date -d -3day +%Y%m%d`
->>20170926  
+>>20170926 
+
+6、排序
+# /etc/passwd 内容是以 : 来分隔的，我想以第三栏来排序，-t 分隔，-k 那一列 -r表示倒序
+cat /etc/passwd | sort -t ':' -k 3r
