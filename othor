@@ -38,3 +38,9 @@ dirName=`date -d -3day +%Y%m%d`
 6、排序
 # /etc/passwd 内容是以 : 来分隔的，我想以第三栏来排序，-t 分隔，-k 那一列 -r表示倒序
 cat /etc/passwd | sort -t ':' -k 3r
+
+7、去重复
+# 去除重复的行，并打印行数c
+cat /etc/passwd | uniq -uc
+# 只统计重复的
+cat /etc/passwd | uniq -dc
